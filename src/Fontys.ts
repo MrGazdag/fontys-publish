@@ -154,12 +154,12 @@ export class UploadOptions {
         let settings = this.constructor["settings"] as UploaderSetting<any>[];
         for (let setting of settings) {
             let source: string;
-            if (Object.hasOwn(data, setting.name)) {
+            if (data.hasOwnProperty(setting.name)) {
                 source = data[setting.name];
             } else {
                 let found = false;
                 for (let alias of setting.aliases) {
-                    if (Object.hasOwn(data, alias)) {
+                    if (data.hasOwnProperty(alias)) {
                         source = data[alias];
                         found = true;
                         break;

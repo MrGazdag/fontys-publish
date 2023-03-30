@@ -1,8 +1,8 @@
 import "./servers";
-import {Fontys, FontysServer, FontysUploader, setting} from "./Fontys.js";
-import IllegalArgumentError from "./errors/IllegalArgumentError.js";
+import {Fontys, FontysServer, FontysUploader, setting} from "./Fontys";
+import IllegalArgumentError from "./errors/IllegalArgumentError";
 import * as fs from "fs";
-import path from "path";
+import * as path from "path";
 // @ts-ignore
 import chalk from "chalk";
 

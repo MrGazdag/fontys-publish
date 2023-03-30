@@ -9,7 +9,11 @@ export default class HeraDirectAdminUploader extends DirectAdminUploader<HeraDir
     }
 
     async upload(sourcePath: string, targetPath: string, options: HeraDirectAdminOptions): Promise<void> {
-        await this.client.login(options.username, options.password);
+        if (options.token) {
+            await this.client.verifyToken(options.token);
+        } else {
+            await this.client.login(options.username, options.password);
+        }
         options.logger("Authenticated with the Hera DirectAdmin server as " + options.username + ".");
         if (options.uploadRaw) {
             options.logger("Uploading to root (" + targetPath + ")...");

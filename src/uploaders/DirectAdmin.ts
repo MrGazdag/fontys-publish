@@ -1,8 +1,9 @@
 import {Constructor, FontysUploader, setting, UploadOptions} from "../Fontys";
 import * as fs from "fs";
 import UploadError from "../errors/UploadError";
-import iconv from "iconv-lite"
+import * as iconv from "iconv-lite"
 import {isText} from "istextorbinary";
+import IllegalArgumentError from "../errors/IllegalArgumentError";
 
 /**
  * A named Blob wrapper.
@@ -266,6 +267,11 @@ export class DirectAdminClient {
             });
         });
     }
+
+    async verifyToken(token: any) {
+        //TODO
+        this.token = token;
+    }
 }
 export default class DirectAdminUploader<Options extends DirectAdminOptions> extends FontysUploader<Options> {
     protected readonly client: DirectAdminClient;
@@ -275,7 +281,11 @@ export default class DirectAdminUploader<Options extends DirectAdminOptions> ext
     }
 
     async upload(sourcePath: string, targetPath: string, options: Options) {
-        await this.client.login(options.username, options.password);
+        if (options.token) {
+            await this.client.verifyToken(options.token);
+        } else {
+            await this.client.login(options.username, options.password);
+        }
         options.logger("Authenticated with DirectAdmin as " + options.username + ".");
         await this.client.fileManager.ensureDelete(targetPath);
         await this.client.fileManager.uploadFolder(sourcePath, targetPath);
@@ -285,13 +295,27 @@ export default class DirectAdminUploader<Options extends DirectAdminOptions> ext
 
 export class DirectAdminOptions extends UploadOptions {
     @setting({
-        description: "The username to use when connecting to DirectAdmin.",
-        required: true
+        description: "The username to use when connecting to DirectAdmin."
     })
     username: string;
     @setting({
-        description: "The password to use when connecting to DirectAdmin.",
-        required: true
+        description: "The password to use when connecting to DirectAdmin."
     })
     password: string;
+    @setting({
+        description: "The session token to use when connecting to DirectAdmin."
+    })
+    token: string;
+
+    constructor(logger: (message) => void, data: any) {
+        super(logger, data);
+
+        if (!this.token) {
+            if (!this.username) {
+                throw new IllegalArgumentError("Please specify an username, or a token.");
+            } else if (!this.password) {
+                throw new IllegalArgumentError("Please specify a password.");
+            }
+        }
+    }
 }

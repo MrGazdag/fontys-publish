@@ -7,7 +7,9 @@
     "build": "tsc",
     "watch": "tsc -w"
   },
-  "bin": "dist/index.js",
+  "bin": {
+    "fontys-publish": "cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MrGazdag/fontys-publish.git"

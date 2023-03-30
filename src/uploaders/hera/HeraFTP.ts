@@ -2,7 +2,7 @@ import {setting} from "../../Fontys";
 import FTPUploader, {FTPOptions} from "../FTP";
 import UploadError from "../../errors/UploadError";
 import * as ftp from "basic-ftp";
-import fs from "fs";
+import * as fs from "fs";
 import IllegalArgumentError from "../../errors/IllegalArgumentError";
 
 const DEFAULT_HERA_FTP_HOST = "hera.fhict.nl";
