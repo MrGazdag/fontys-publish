@@ -1,0 +1,35 @@
+{
+  "name": "fontys-publish",
+  "version": "1.0.0",
+  "description": "A tool to publish code to Fontys servers.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "bin": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrGazdag/fontys-publish.git"
+  },
+  "keywords": [
+    "fontys"
+  ],
+  "author": "MrGazdag",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/MrGazdag/fontys-publish/issues"
+  },
+  "homepage": "https://github.com/MrGazdag/fontys-publish#readme",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "basic-ftp": "^5.0.2",
+    "chalk": "^5.2.0",
+    "iconv-lite": "^0.6.3",
+    "istextorbinary": "^6.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "Node16",
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "experimentalDecorators": true
+    }
+}
