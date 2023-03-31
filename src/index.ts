@@ -53,6 +53,23 @@ function closeLoggers() {
     }
 }
 
+function parseEnvVar(value) {
+    if (value.startsWith("$$")) {
+        // Treat $$ as a single $
+        return value.substring(1);
+    } else if (value.startsWith("$")) {
+        // Use environment variable
+        if (process.env[value.substring(1)]) {
+            return process.env[value.substring(1)];
+        } else {
+            // Environment variable not found
+            return value;
+        }
+    } else {
+        return value;
+    }
+}
+
 console.log();
 console.log("Fontys Uploader 1.0.0");
 console.log();
@@ -143,11 +160,11 @@ function parse(args) {
             } else {
                 // Parse source or target
                 if (source == null) {
-                    source = arg;
+                    source = parseEnvVar(arg);
                 } else if (target == null) {
-                    target = arg;
+                    target = parseEnvVar(arg);
                 } else {
-                    console.log(colorError("Unknown argument \"" + arg + "\""));
+                    console.log(colorError("Unknown argument \"" + parseEnvVar(arg) + "\""));
                 }
                 continue;
             }
@@ -156,7 +173,7 @@ function parse(args) {
             if (arg.includes("=")) {
                 let arr = arg.split("=");
                 key = arr[0];
-                value = arr[1];
+                value = parseEnvVar(arr[1]);
             } else {
                 key = arg;
                 value = "";

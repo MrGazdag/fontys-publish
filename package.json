@@ -1,6 +1,6 @@
 {
   "name": "fontys-publish",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A tool to publish code to Fontys servers.",
   "main": "dist/index.js",
   "scripts": {
